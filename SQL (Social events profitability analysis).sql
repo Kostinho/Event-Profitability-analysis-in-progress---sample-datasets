@@ -1,12 +1,9 @@
 
-
-
 --Let's figure out the total profit breakdown and create the table for it.
 
 --Part 1. Preparing the table.
 
---Step 1 Select every key characteristics from all tables and join them, so all details will be captured
-
+--Step 1 Select every key characteristic from all tables and join them, so all details will be captured
 
 Select c1.id as customer_id,o.id as order_number, c2."desc" as city_name, os."desc" as operation_system, e."desc" as event_name,Gender,age,
 Round ((tcktprx/percentage)*100-(negex+devex),2) as rounded_profit 
@@ -36,7 +33,7 @@ Select city_name, AVG(rounded_profit) from Profitability_breakdown
 Group by city_name
 Order by rounded_profit DESC 
 
---Step 2. By event and city. Could be the signal, how customers prefer to spend their time in each city
+--Step 2. By event and city. This could be the signal, of how customers prefer to spend their time in each city
 
 Select event_name,city_name, avg (rounded_profit) from Profitability_breakdown 
 Group by event_name, city_name
@@ -50,11 +47,11 @@ Select gender, city_name , avg (rounded_profit) from Profitability_breakdown
 Group by gender,city_name 
 Order by rounded_profit 
 
---In Montreal, females brought bigger average profits, could be the sign of their higher engagement, 
---In Toronto , males brought average profits, could be the sign of their higher engagement.
+--In Montreal, females brought bigger average profits, which could be a sign of their higher engagement, 
+--In Toronto, males brought average profits, which could be a sign of their higher engagement.
 --Alternatively, the event price could be the factor.
 
---Lets add new column to the Profitability table
+--Let's add new column to the Profitability table
 Alter table Profitability_breakdown 
 Add Event_status VARCHAR(255)
 
